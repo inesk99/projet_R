@@ -2,7 +2,7 @@
 #'
 #'class_belonging function allows to calculate the class of belonging : 1 if x>0 otherwise 0
 #'
-#' @param x it's a param
+#' @param x it's a parameter
 #'
 #' @return Returns 0 or 1
 #' @export

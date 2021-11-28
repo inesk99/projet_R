@@ -19,15 +19,15 @@ fit(
 
 \item{data}{select a Dataframe}
 
-\item{epsilon}{The parametre that tells us when we converge}
+\item{epsilon}{parameter that tells us when we converge}
 
 \item{learning_rate}{a double value}
 
 \item{max_iter}{an integer}
 
-\item{batch_size}{Select a sample of the dataframe(batch_size=1:online,batch_size=nrow(data):batch,1<batch_size<nrow(data):mini-batch )}
+\item{batch_size}{Select a sample of the dataframe(batch_size=1:online ; batch_size=nrow(data):batch ; 1<batch_size<nrow(data):mini-batch )}
 
-\item{ncores}{Numbre of processors}
+\item{ncores}{Number of processors}
 }
 \value{
 S3 object type Reg_Logistique

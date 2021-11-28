@@ -4,11 +4,11 @@
 #'
 #' @param formula Formula helps us to select the target variable and features
 #' @param data select a Dataframe
-#' @param epsilon The parametre that tells us when we converge
+#' @param epsilon  parameter that tells us when we converge
 #' @param learning_rate a double value
 #' @param max_iter an integer
-#' @param batch_size Select a sample of the dataframe(batch_size=1:online,batch_size=nrow(data):batch,1<batch_size<nrow(data):mini-batch )
-#' @param ncores Numbre of processors
+#' @param batch_size Select a sample of the dataframe(batch_size=1:online ; batch_size=nrow(data):batch ; 1<batch_size<nrow(data):mini-batch )
+#' @param ncores Number of processors
 #'
 #' @import dplyr
 #' @importFrom fastDummies dummy_columns
@@ -31,7 +31,7 @@ fit <- function(formula,data,epsilon = 1e-4,learning_rate = 0.01,max_iter = 1000
     x = vars[,-1]
 
     #verification que y soit facteur
-    if(is.factor(y)== FALSE){
+    if(is.factor(y[,1])== FALSE){
       stop("y must be is factor !")
     }
 

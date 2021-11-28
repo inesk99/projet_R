@@ -7,7 +7,7 @@
 classe_appartenance(x)
 }
 \arguments{
-\item{x}{it's a param}
+\item{x}{it's a parameter}
 }
 \value{
 Returns 0 or 1

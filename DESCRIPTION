@@ -19,7 +19,7 @@ Author: c(person(given = "Hamza",
 Maintainer: The package maintainer <yourself@somewhere.net>
 Description: We present you a package which proposes the logistic regression with the method of the stochastic gradient descent with the possibility of exploiting the  capacities of the multicore processors.
 Depends: 
-  R (> 4.0.0)
+  R (>= 2.10.0)
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
