@@ -44,11 +44,6 @@ predict <- function(objet,newdata,type){
     stop("Inadequate argument : use a object of type Reg.Logistique")
   }
 
-  #Verification de la coherence entre le nb de coefficients et le nb de colonnes newdata
-  if (length(objet$coef) - 1 != ncol(newdata)){
-    stop("Your data set does not match the set used in the fit")
-  }
-
   #Verification si le type saisi est "class" ou "posterior"
   if(type != "class" & type != "posterior" ){
     stop("Inadequate argument: the value of the type is neither of class nor posterior")
@@ -66,20 +61,20 @@ predict <- function(objet,newdata,type){
       newdata = valeurs_manquantes_dataframe(newdata)
     }
 
+    #Verification de la coherence entre le nb de coefficients et le nb de colonnes newdata
+    if (length(objet$coef) - 1 != ncol(newdata)){
+      stop("Your data set does not match the set used in the fit")
+    }
+
     #centrer-reduire le reste des variables sauf la premiere colonne remplie de 1
     for(i in 1:ncol(newdata)){
       if(is.numeric(newdata[,i])){
-
         newdata[,i] = (newdata[,i] - objet$moy[i])/objet$sd[i]
-        print(objet$sd[i])
       }else{
         newdata[,i] = newdata[,i]
       }
     }
 
-
-    print(class(newdata))
-    print(newdata)
     #fonction dummies : recodage des variables qualitatives en 0/1
     if (sum(sapply(newdata,is.factor))>0){
       newdata = dummy_columns(as.data.frame(newdata),remove_selected_columns = TRUE)
