@@ -120,8 +120,7 @@ accuracy=(confusion_matrix[1,1]+confusion_matrix[2,2])/sum(confusion_matrix) ; a
 error_rate = 1-accuracy ; error_rate
 ```
 
-
-
+Thank you for following our tutorial ! 
 
 
 
