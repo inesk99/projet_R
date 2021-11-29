@@ -26,7 +26,24 @@ b_cancer = PackageRegLog::cancer
 
 We can open the dataframe "b_cancer" to see the differents variables. The dataset contains informations on women who have breast tumors and the variable "diagnosis" includes two modalities : M (malignant) or B (benign). It contains 569 observations and 33 variables : 30 of type "numeric", 1 of type "integer" : "ID" , 1 of type "factor" : "diagnosis" and 1 of type "logical" : "X". 
 
+## Splitting the dataset
+
+After data import, 
+
 ## Tutorial for using the package
+
+Now, you can use our package. 
+
+### Fit a SGD logistic regression 
+
+For that, we can use the function "fit". If you want to see the seeting of this function, you can run __help(fit)__.   
+*fit(formula, data, epsilon, learning_rate, max_iter, batch_size, ncores)*
+
+```
+a = fit(diagnosis~.,data=cancer,epsilon = 1e-04,learning_rate = 0.01,max_iter = 1000,batch_size = nrow(cancer),ncores=0)
+```
+This 
+
 
 
 
