@@ -21,10 +21,10 @@ library(PackageRegLog)
 First, you need to import a dataset. It can include numerical, categorial variables or both. We choose the one you want. In this example, the dataset "Breast Cancer" will be used. This dataset is included 
 
 ```
-b_cancer = PackageRegLog::cancer
+cancer = PackageRegLog::cancer
 ```
 
-We can open the dataframe "b_cancer" to see the differents variables. The dataset contains informations on women who have breast tumors and the variable "diagnosis" includes two modalities : M (malignant) or B (benign). It contains 569 observations and 33 variables : 30 of type "numeric", 1 of type "integer" : "ID" , 1 of type "factor" : "diagnosis" and 1 of type "logical" : "X". 
+We can open the dataframe "cancer" to see the differents variables. The dataset contains informations on women who have breast tumors and the variable "diagnosis" includes two modalities : M (malignant) or B (benign). It contains 569 observations and 33 variables : 30 of type "numeric", 1 of type "integer" : "ID" , 1 of type "factor" : "diagnosis" and 1 of type "logical" : "X". 
 
 ## Splitting the dataset
 
