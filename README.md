@@ -32,7 +32,7 @@ After data import, it's useful to split the data set into two samples : train an
 You have to install the package "caret" and load it. 
 
 ```
-install_package("caret")
+install.packages("caret")
 library(caret)
 ```
 
