@@ -48,7 +48,7 @@ The training data has 399 rows and 170 rows for the testing data.
 
 ## Tutorial for using the package
 
-Now, you can use our package. 
+Now, you can use our package.
 "
 ### Fit a SGD logistic regression 
 
