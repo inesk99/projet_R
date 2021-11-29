@@ -101,7 +101,7 @@ To explore further, you can compare the actual data and the predictions made. Yo
 As the target variable y "diagnosis" is qualitative, it must be coded in 0 and 1. The package used is "fastDummies".
 
 ```
-install.packages("FastDummies")
+install.packages("fastDummies")
 library(fastDummies)
 y_test  = dummy_columns(y_test,remove_first_dummy = TRUE,remove_selected_columns = TRUE)
 ```
