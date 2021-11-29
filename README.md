@@ -5,7 +5,7 @@ The package "PackageRegLog" is used to fit a logistic regression model with a st
 ## Installing the package 
 
 ```
-devtools::install_github("inesk99/PackageRegLog")
+devtools::install_github("inesk99/projet_R")
 ```
 
 ## Loading the package 
