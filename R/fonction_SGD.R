@@ -12,25 +12,20 @@ prediction <- function(z){
 
 #'Function LL
 #'
-#'LL it's a  log-loss function
+#'LL it's a  log-loss function of logistic regression
 #'
-#' @param theta is gradient parametre
-#' @param X  a  numeric matrix
-#' @param y a numeric vector
+#' @param theta is gradient parameter
+#' @param X  a  numeric matrix of features
+#' @param y a numeric vector to target variable
 #'
 #' @return Returns cost value
 #'
 #' @export
-#'
 LL <- function(theta,X,y){
 
   m <- nrow(X)
   h <- prediction(X%*%theta)
-  for(i in 1:nrow(h)){
-    if(h[i,] == 1){
-      h[i,] = 0.99999
-    }
-  }
+  h <- replace(h, h==1,0.9999)
   cost = (t(-y)%*%log(h) - t(1-y)%*%log(1-h))/m
 
   return(cost)
@@ -40,9 +35,9 @@ LL <- function(theta,X,y){
 #'
 #' cost_derive function is the derivation of the log-loss function
 #'
-#' @param theta is gradient parametre
-#' @param X a numeric matrix
-#' @param y a numeric vector
+#' @param theta is gradient parameter
+#' @param X a  numeric matrix of features
+#' @param y a numeric matrix to target variable
 #'
 #' @return Returns gradient
 #'
@@ -58,18 +53,21 @@ cost_derive <- function(theta,X,y){
 
 #'Function gradient_stochastique
 #'
-#'Gradient_stochastique function to calcul the simple gradient.
+#'It's a function to calculate the stochasitic gradient descent.
+#'Batch size corresponds to the sampling mode. If it's equal to 1 then we are doing online. Included between 1 and number of lines, it's a mini batch.
+#'And if it's equal to the number of lines then it's a batch.
 #'
-#' @param X a numetric matrix
-#' @param y a numeric vector
-#' @param theta is a gradient coefficient
-#' @param epsilon The parametre that tells us when we converge
-#' @param learning_rate a double value
-#' @param max_iter a integer
-#' @param batch_size Select a sample of the dataframe(batch_size=1:online,batch_size=nrow(data):batch,1<batch_size<nrow(data):mini-batch )
+#' @param X a numeric matrix of features
+#' @param y a numeric matrix to target variable
+#' @param theta a numeric vector.It includes the same number of data as the column number of X. It is initiated randomly. Theta allows us to calculate the gradients.
+#' @param epsilon a numerical value that allows us to stop when calculating gradients.
+#' @param learning_rate  numeric value which determines the speed of convergence of the process
+#' @param max_iter a numeric value to allows stop the gradient descent if we don't converge.
+#' @param batch_size a number to allow selection of a sample from the database
+#'
+#' @importFrom graphics title
 #'
 #' @return a vector theta which is descent gradient coefficients
-#'
 #'
 #' @export
 gradient_stochastique <- function(X,y,theta,epsilon,learning_rate,max_iter,batch_size){
@@ -132,10 +130,12 @@ gradient_stochastique <- function(X,y,theta,epsilon,learning_rate,max_iter,batch
   }
 
   #Affichage du graphique de la fonction de cout
-  plot(list_cout,type="l")
+  plot(list_cout,type="l",xlab="Number of iterations",ylab="Cost")
+  title(main = "cost function")
+
 
   #Affichage du nombre d'iteration
-  print(paste("Nombre d'iterations :",iter))
+  print(paste("Number of iterations :",iter))
 
   #On retourne theta : nos coefficients
   return(theta)
@@ -144,14 +144,16 @@ gradient_stochastique <- function(X,y,theta,epsilon,learning_rate,max_iter,batch
 #'Function SGD_paralle
 #'
 #'SGD_paralle function is the same as gradient_stochastique function but with parallelisation
+#'Batch size corresponds to the sampling mode. If it's equal to 1 then we are doing online. Included between 1 and number of lines, it's a mini batch.
+#'And if it's equal to the number of lines then it's a batch.
 #'
-#' @param data is a dataframe that containes X and y
-#' @param theta is a gradient coefficient
-#' @param k is the nubmer of cores to want use
-#' @param epsilon The parametre that tells us when we converge
-#' @param learning_rate a double value
-#' @param max_iter an integer
-#' @param batch_size Select a sample of the dataframe(batch_size=1:online,batch_size=nrow(data):batch,1<batch_size<nrow(data):mini-batch )
+#' @param data a numeric matrix of features
+#' @param theta a numeric vector.It includes the same number of data as the column number of X. It is initiated randomly. Theta allows us to calculate the gradients.
+#' @param k  allows to split our data set according to the hearts which were entered.
+#' @param epsilon a numerical value that allows us to stop when calculating gradients.
+#' @param learning_rate  numeric value which determines the speed of convergence of the process
+#' @param max_iter a numeric value to allows stop the gradient descent if we don't converge.
+#' @param batch_size a number to allow selection of a sample from the database
 #'
 #' @import doParallel
 #' @import parallel
@@ -166,7 +168,7 @@ SGD_paralle <- function(data,theta,k,epsilon,learning_rate,max_iter,batch_size){
 
 
 
-  #traité avec tout les coeurs
+  #traité avec tous les coeurs
   if(k == -1){
     k = parallel::detectCores() - 1
   }
@@ -182,7 +184,6 @@ SGD_paralle <- function(data,theta,k,epsilon,learning_rate,max_iter,batch_size){
   #Pour chaque bloc...
   res = foreach::foreach(i= blocs,.combine = 'cbind',.export = c('gradient_stochastique','LL','prediction','cost_derive')) %dopar% {
     # gestion de i commme une variable global
-    globalVariables(names = i,package = "PackageRegLog",add = TRUE)
 
     n = ncol(i)
     X = as.matrix(i[,-n])

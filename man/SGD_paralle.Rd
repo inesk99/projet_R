@@ -7,23 +7,25 @@
 SGD_paralle(data, theta, k, epsilon, learning_rate, max_iter, batch_size)
 }
 \arguments{
-\item{data}{is a dataframe that containes X and y}
+\item{data}{a numeric matrix of features}
 
-\item{theta}{is a gradient coefficient}
+\item{theta}{a numeric vector.It includes the same number of data as the column number of X. It is initiated randomly. Theta allows us to calculate the gradients.}
 
-\item{k}{is the nubmer of cores to want use}
+\item{k}{allows to split our data set according to the hearts which were entered.}
 
-\item{epsilon}{The parametre that tells us when we converge}
+\item{epsilon}{a numerical value that allows us to stop when calculating gradients.}
 
-\item{learning_rate}{a double value}
+\item{learning_rate}{numeric value which determines the speed of convergence of the process}
 
-\item{max_iter}{an integer}
+\item{max_iter}{a numeric value to allows stop the gradient descent if we don't converge.}
 
-\item{batch_size}{Select a sample of the dataframe(batch_size=1:online,batch_size=nrow(data):batch,1<batch_size<nrow(data):mini-batch )}
+\item{batch_size}{a number to allow selection of a sample from the database}
 }
 \value{
 a combination of k descent gradient vectors
 }
 \description{
 SGD_paralle function is the same as gradient_stochastique function but with parallelisation
+Batch size corresponds to the sampling mode. If it's equal to 1 then we are doing online. Included between 1 and number of lines, it's a mini batch.
+And if it's equal to the number of lines then it's a batch.
 }

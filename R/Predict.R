@@ -1,8 +1,8 @@
-#'Function class_belonging
+#'Function classe_appartenance
 #'
-#'class_belonging function allows to calculate the class of belonging : 1 if x>0 otherwise 0
+#'It's a function allows to calculate the class of belonging : 1 if x>0 otherwise 0
 #'
-#' @param x it's a parameter
+#' @param x corresponds to the row of the calculation of LOGIT
 #'
 #' @return Returns 0 or 1
 #' @export
@@ -15,16 +15,15 @@ classe_appartenance <- function(x){
 }
 
 
-
 #'Function predict
 #'
-#'Predict function allows us to do our prediction
+#'Predict is a function that allows us to make our prediction
 #'
 #' @param objet Object is a Fit S3 object
-#' @param  newdata a dataframe the same type we use in Fit
-#' @param type Type is qualitative variable with two modalities : class and probability
+#' @param  newdata a same dataframe that use in Fit, but without the target variable
+#' @param type Type is qualitative variable with two modalities : class and posterior
 #'
-#' @return Returns a list of prediction or probability
+#' @return Returns a list of prediction (0/1) or probability
 #'
 #' @export
 predict <- function(objet,newdata,type){
@@ -32,9 +31,6 @@ predict <- function(objet,newdata,type){
   #                                                                                #
   # Verification de coherence et application des transformations faites dans le fit
   #                                                                                #
-
-  #Verification si le type saisi est "class" ou "posterior"
-
 
   #Recuperation du fichier de donnees mis dans le fit
   data = objet$donnees
@@ -45,12 +41,17 @@ predict <- function(objet,newdata,type){
 
   #Verification si l'objet est bien l'objet S3 retourne dans le fit
   if (class(objet) != "Reg_Logistique"){
-    stop("Argument inadequat : use a object of type Reg.Logistique")
+    stop("Inadequate argument : use a object of type Reg.Logistique")
   }
 
   #Verification de la coherence entre le nb de coefficients et le nb de colonnes newdata
-  if (length(objet$coef) != ncol(newdata)){
-    stop("Votre jeu de donnees ne correspond pas au jeu utilise dans le fit")
+  if (length(objet$coef) - 1 != ncol(newdata)){
+    stop("Your data set does not match the set used in the fit")
+  }
+
+  #Verification si le type saisi est "class" ou "posterior"
+  if(type != "class" & type != "posterior" ){
+    stop("Inadequate argument: the value of the type is neither of class nor posterior")
   }
 
   #          #
@@ -60,19 +61,25 @@ predict <- function(objet,newdata,type){
   #Si l'entree est bien un dataframe et que les noms des colonnes data et newdate matchent
   if ((is.data.frame(newdata)) & ((is.element(FALSE,match))==FALSE)){
 
-    #Rajout d'une colonne de 1 pour le biais
-    vec = matrix(1,ncol = 1,nrow = nrow(newdata))
-    newdata = cbind(vec,newdata)
-
     #Valeurs manquantes
     if (sum(is.na(newdata))>0){
       newdata = valeurs_manquantes_dataframe(newdata)
     }
 
     #centrer-reduire le reste des variables sauf la premiere colonne remplie de 1
-    newdata = centr_reduc_dataframe(newdata[,-1])
+    for(i in 1:ncol(newdata)){
+      if(is.numeric(newdata[,i])){
+
+        newdata[,i] = (newdata[,i] - objet$moy[i])/objet$sd[i]
+        print(objet$sd[i])
+      }else{
+        newdata[,i] = newdata[,i]
+      }
+    }
 
 
+    print(class(newdata))
+    print(newdata)
     #fonction dummies : recodage des variables qualitatives en 0/1
     if (sum(sapply(newdata,is.factor))>0){
       newdata = dummy_columns(as.data.frame(newdata),remove_selected_columns = TRUE)

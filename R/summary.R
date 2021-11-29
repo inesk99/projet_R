@@ -3,11 +3,10 @@
 #'summary.Reg.Logistique allows us to print logistic function
 #'
 #' @param object S3 type Reg_Logistique
-#' @param ... other params
+#' @param ... unknowns parameters
 #'
 #' @importFrom stats quantile
 #' @export
-#'
 summary.Reg_Logistique = function(object, ...){
 
   #Quantile

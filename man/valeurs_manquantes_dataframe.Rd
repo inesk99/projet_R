@@ -7,11 +7,11 @@
 valeurs_manquantes_dataframe(X)
 }
 \arguments{
-\item{X}{it's a dataframe}
+\item{X}{a dataframe cantaining the variables in the model}
 }
 \value{
 Returns the new dataframe without missing values
 }
 \description{
-valeurs_manquantes_dataframe function allows to replace or delete a certain column that containes multiple NA values or blank values in the dataframe and returns a new one.
+valeurs_manquantes_dataframe applies valeurs_manquantes to the dataframe
 }

@@ -7,11 +7,11 @@
 valeurs_manquantes(x)
 }
 \arguments{
-\item{x}{it a param}
+\item{x}{corresponds to each row}
 }
 \value{
 Returns modified rows
 }
 \description{
-valeurs_manquantes function allows to replace or delete a certain column that containes multiple NA values or blank values
+valeurs_manquantes function allows you to replace or delete a certain column which contains several NA values.
 }

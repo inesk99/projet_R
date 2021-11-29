@@ -1,8 +1,8 @@
 #'Function centr_reduc_vecteur
 #'
-#'centr_reduc_vecteur function allows us to standarize our variables.
+#'centr_reduc_vecteur function allows us to standardize features variables
 #'
-#' @param x it's a param
+#' @param x corresponds to each row
 #'
 #' @return Returns standarized variables
 #' @export
@@ -22,9 +22,9 @@ centr_reduc_vecteur = function(x){
 
 #'Function centr_reduc_dataframe
 #'
-#'centr_reduc_dataframe function allows us to standarize our variables in the dataframe.
+#'centr_reduc_dataframe appplies centr_reduc_vecteur on the dataframe
 #'
-#' @param X it's a dataframe
+#' @param X a dataframe cantaining the variables in the model
 #'
 #' @return Returns the new dataframe with standarized variables
 #'
@@ -36,4 +36,26 @@ centr_reduc_dataframe = function(X){
   X = data.frame(transformation)
   #On retourne X centre-reduit
   return(X)
+}
+
+#' Fonction save.mean
+#'
+#' Return the mean for each column
+#'
+#' @param x corresponds to the column of the dataframe
+save.mean = function(x){
+  if(is.numeric(x)){
+    x = mean(x)
+  }
+
+}
+#' Fonction save.sd
+#'
+#' Returns the standard deviation for each column
+#'
+#' @param x corresponds to the column of the dataframe
+save.sd = function(x){
+  if(is.numeric(x)){
+    x = sd(x)
+  }
 }

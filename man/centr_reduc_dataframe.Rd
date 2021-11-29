@@ -7,11 +7,11 @@
 centr_reduc_dataframe(X)
 }
 \arguments{
-\item{X}{it's a dataframe}
+\item{X}{a dataframe cantaining the variables in the model}
 }
 \value{
 Returns the new dataframe with standarized variables
 }
 \description{
-centr_reduc_dataframe function allows us to standarize our variables in the dataframe.
+centr_reduc_dataframe appplies centr_reduc_vecteur on the dataframe
 }

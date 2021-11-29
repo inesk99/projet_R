@@ -2,16 +2,16 @@
 % Please edit documentation in R/Predict.R
 \name{classe_appartenance}
 \alias{classe_appartenance}
-\title{Function class_belonging}
+\title{Function classe_appartenance}
 \usage{
 classe_appartenance(x)
 }
 \arguments{
-\item{x}{it's a parameter}
+\item{x}{corresponds to the row of the calculation of LOGIT}
 }
 \value{
 Returns 0 or 1
 }
 \description{
-class_belonging function allows to calculate the class of belonging : 1 if x>0 otherwise 0
+It's a function allows to calculate the class of belonging : 1 if x>0 otherwise 0
 }

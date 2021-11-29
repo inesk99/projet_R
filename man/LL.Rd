@@ -7,15 +7,15 @@
 LL(theta, X, y)
 }
 \arguments{
-\item{theta}{is gradient parametre}
+\item{theta}{is gradient parameter}
 
-\item{X}{a  numeric matrix}
+\item{X}{a  numeric matrix of features}
 
-\item{y}{a numeric vector}
+\item{y}{a numeric vector to target variable}
 }
 \value{
 Returns cost value
 }
 \description{
-LL it's a  log-loss function
+LL it's a  log-loss function of logistic regression
 }

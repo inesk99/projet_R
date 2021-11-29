@@ -1,14 +1,16 @@
 #'Function Fit
 #'
 #'Fit function allows us to calculate the coefficients with a Stochastic gradient descent.
+#'Batch size corresponds to the sampling mode. If it's equal to 1 then we are doing online. Included between 1 and number of lines, it's a mini batch.
+#'And if it's equal to the number of lines then it's a batch.
 #'
-#' @param formula Formula helps us to select the target variable and features
-#' @param data select a Dataframe
-#' @param epsilon  parameter that tells us when we converge
-#' @param learning_rate a double value
-#' @param max_iter an integer
-#' @param batch_size Select a sample of the dataframe(batch_size=1:online ; batch_size=nrow(data):batch ; 1<batch_size<nrow(data):mini-batch )
-#' @param ncores Number of processors
+#' @param formula an object of class formula. allows you to select the target variable and features variables.
+#' @param data a dataframe cantaining the variables in the model.
+#' @param epsilon  a numeric value to allows us to converge and stop the descent gradient
+#' @param learning_rate a numeric value which determines the speed of convergence of the process
+#' @param max_iter a numeric value to allows stop the gradient descent if we don't converge.
+#' @param batch_size  a number to allow selection of a sample from the database
+#' @param ncores a numeric value to determine the number of hearts to use
 #'
 #' @import dplyr
 #' @importFrom fastDummies dummy_columns
@@ -19,7 +21,7 @@
 #' @return S3 object type Reg_Logistique
 #'
 #' @export
-fit <- function(formula,data,epsilon = 1e-4,learning_rate = 0.01,max_iter = 1000,batch_size=1,ncores){
+fit <- function(formula,data,epsilon = 1e-4,learning_rate = 0.01,max_iter = 1500,batch_size= 200,ncores=0){
 
 
   #On teste si les entrees sont bien une formule et un dataframe
@@ -31,7 +33,7 @@ fit <- function(formula,data,epsilon = 1e-4,learning_rate = 0.01,max_iter = 1000
     x = vars[,-1]
 
     #verification que y soit facteur
-    if(is.factor(y[,1])== FALSE){
+    if(is.factor(y[,1])== FALSE && is.numeric(y[,1])== FALSE){
       stop("y must be is factor !")
     }
 
@@ -53,6 +55,12 @@ fit <- function(formula,data,epsilon = 1e-4,learning_rate = 0.01,max_iter = 1000
     }
 
     #Centrer-reduire le reste des variables sauf la premiere colonne remplie de 1
+    moy = unlist(lapply(x[1:ncol(x)], save.mean))
+    sd = unlist(lapply(x[1:ncol(x)], save.sd))
+
+    moy = as.vector(moy)
+    sd = as.vector(sd)
+
     x = centr_reduc_dataframe(x)
 
     #Transformation du x en dataframe
@@ -111,7 +119,7 @@ fit <- function(formula,data,epsilon = 1e-4,learning_rate = 0.01,max_iter = 1000
     prob = exp(C)/(1+exp(C))
 
     #Gestion des valeurs 1 dans les probabilites
-    replace(prob,prob==1,0.99999)
+    prob = replace(prob,prob==1,0.99999)
 
     ll = (y*log(prob)+(1-y)*log(1-prob))
 
@@ -128,6 +136,8 @@ fit <- function(formula,data,epsilon = 1e-4,learning_rate = 0.01,max_iter = 1000
     instance$donnees = verif
     instance$call <- paste(c("fit(",formula,",",call(data), ")"), sep = " ")
     instance$coef <- gradient
+    instance$moy <- moy
+    instance$sd <- sd
     instance$ddl <- nrow(data)-ncol(data)
     instance$deviance <- ll
     class(instance) <- "Reg_Logistique"

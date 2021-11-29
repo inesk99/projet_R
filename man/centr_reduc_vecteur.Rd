@@ -7,11 +7,11 @@
 centr_reduc_vecteur(x)
 }
 \arguments{
-\item{x}{it's a param}
+\item{x}{corresponds to each row}
 }
 \value{
 Returns standarized variables
 }
 \description{
-centr_reduc_vecteur function allows us to standarize our variables.
+centr_reduc_vecteur function allows us to standardize features variables
 }

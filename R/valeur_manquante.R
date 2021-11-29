@@ -1,12 +1,12 @@
 #'Function valeurs_manquantes
 #'
-#'valeurs_manquantes function allows to replace or delete a certain column that containes multiple NA values or blank values
+#'valeurs_manquantes function allows you to replace or delete a certain column which contains several NA values.
 #'
-#' @param x it a param
+#' @param x corresponds to each row
 #'
 #' @return Returns modified rows
+#'
 #' @export
-
 valeurs_manquantes = function(x){
   #vecteur avec les valeurs restantes
   y =  na.omit(x)
@@ -32,9 +32,9 @@ valeurs_manquantes = function(x){
 
 #'Function valeurs_manquantes_dataframe
 #'
-#'valeurs_manquantes_dataframe function allows to replace or delete a certain column that containes multiple NA values or blank values in the dataframe and returns a new one.
+#'valeurs_manquantes_dataframe applies valeurs_manquantes to the dataframe
 #'
-#' @param X it's a dataframe
+#' @param X a dataframe cantaining the variables in the model
 #'
 #' @return Returns the new dataframe without missing values
 #'

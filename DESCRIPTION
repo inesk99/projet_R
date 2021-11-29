@@ -29,5 +29,6 @@ Imports: foreach,
   dplyr,
   parallel,
   rlang,
-  usethis
+  usethis, 
+  graphics
 RoxygenNote: 7.1.2

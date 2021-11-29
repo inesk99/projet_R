@@ -9,29 +9,31 @@ fit(
   data,
   epsilon = 1e-04,
   learning_rate = 0.01,
-  max_iter = 1000,
-  batch_size = 1,
-  ncores
+  max_iter = 1500,
+  batch_size = 200,
+  ncores = 0
 )
 }
 \arguments{
-\item{formula}{Formula helps us to select the target variable and features}
+\item{formula}{an object of class formula. allows you to select the target variable and features variables.}
 
-\item{data}{select a Dataframe}
+\item{data}{a dataframe cantaining the variables in the model.}
 
-\item{epsilon}{parameter that tells us when we converge}
+\item{epsilon}{a numeric value to allows us to converge and stop the descent gradient}
 
-\item{learning_rate}{a double value}
+\item{learning_rate}{a numeric value which determines the speed of convergence of the process}
 
-\item{max_iter}{an integer}
+\item{max_iter}{a numeric value to allows stop the gradient descent if we don't converge.}
 
-\item{batch_size}{Select a sample of the dataframe(batch_size=1:online ; batch_size=nrow(data):batch ; 1<batch_size<nrow(data):mini-batch )}
+\item{batch_size}{a number to allow selection of a sample from the database}
 
-\item{ncores}{Number of processors}
+\item{ncores}{a numeric value to determine the number of hearts to use}
 }
 \value{
 S3 object type Reg_Logistique
 }
 \description{
 Fit function allows us to calculate the coefficients with a Stochastic gradient descent.
+Batch size corresponds to the sampling mode. If it's equal to 1 then we are doing online. Included between 1 and number of lines, it's a mini batch.
+And if it's equal to the number of lines then it's a batch.
 }

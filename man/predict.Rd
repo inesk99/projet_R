@@ -9,13 +9,13 @@ predict(objet, newdata, type)
 \arguments{
 \item{objet}{Object is a Fit S3 object}
 
-\item{newdata}{a dataframe the same type we use in Fit}
+\item{newdata}{a same dataframe that use in Fit, but without the target variable}
 
-\item{type}{Type is qualitative variable with two modalities : class and probability}
+\item{type}{Type is qualitative variable with two modalities : class and posterior}
 }
 \value{
-Returns a list of prediction or probability
+Returns a list of prediction (0/1) or probability
 }
 \description{
-Predict function allows us to do our prediction
+Predict is a function that allows us to make our prediction
 }

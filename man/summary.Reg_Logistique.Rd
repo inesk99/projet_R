@@ -9,7 +9,7 @@
 \arguments{
 \item{object}{S3 type Reg_Logistique}
 
-\item{...}{other params}
+\item{...}{unknowns parameters}
 }
 \description{
 summary.Reg.Logistique allows us to print logistic function
